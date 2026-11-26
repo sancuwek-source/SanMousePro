@@ -14,8 +14,10 @@ jobs:
           java-version: 17
       - name: Android SDK
         run: |
-          yes | sdkmanager --licenses > /dev/null || true
-          sdkmanager "platforms;android-34" "build-tools;34.0.0" "ndk;26.1.10909125" "cmake;3.22.1"
+          SDKM=$(ls $ANDROID_HOME/cmdline-tools/*/bin/sdkmanager | head -1)
+          echo "sdkmanager: $SDKM"
+          yes | $SDKM --licenses > /dev/null || true
+          $SDKM "platforms;android-34" "build-tools;34.0.0" "ndk;26.1.10909125" "cmake;3.22.1"
       - name: Install Gradle 8.7
         run: |
           wget -q https://services.gradle.org/distributions/gradle-8.7-bin.zip
